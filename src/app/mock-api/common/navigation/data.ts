@@ -24,20 +24,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
 
                     {
                         id: 'apps.ecommerce.inventory',
-                        title: 'Ajouter produits',
+                        title: 'add projects',
                         type: 'basic',
                          icon: 'heroicons_outline:shopping-cart',
 
                         link: '/apps/ecommerce/inventory',
                     },
-                 {
+                /*{
                                         id: 'apps.ecommerce.inventory',
                                         title: 'Ajouter users',
                                                         icon: 'heroicons_outline:user-group',
 
                                         type: 'basic',
                                         link: '/apps/ecommerce/inventory',
-                                    },
+                                    },*/
 
 
 

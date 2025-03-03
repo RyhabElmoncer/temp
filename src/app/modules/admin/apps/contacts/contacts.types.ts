@@ -18,6 +18,8 @@ export interface Contact {
     address?: string | null;
     notes?: string | null;
     tags: string[];
+    role?: string;
+
 }
 
 export interface Country {

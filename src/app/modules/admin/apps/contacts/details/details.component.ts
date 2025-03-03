@@ -127,6 +127,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
             address: [null],
             notes: [null],
             tags: [[]],
+            role: [''],
         });
 
         // Get the contacts
