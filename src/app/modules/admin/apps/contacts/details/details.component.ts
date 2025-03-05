@@ -118,7 +118,9 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
         this.contactForm = this._formBuilder.group({
             id: [''],
             avatar: [null],
-            name: ['', [Validators.required]],
+            /*name: ['', [Validators.required]],*/
+            firstname:['', [Validators.required]],
+            lastname:['', [Validators.required]],
             emails: this._formBuilder.array([]),
             phoneNumbers: this._formBuilder.array([]),
             title: [''],
@@ -201,7 +203,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
                             this._formBuilder.group({
                                 country: [phoneNumber.country],
                                 phoneNumber: [phoneNumber.phoneNumber],
-                                label: [phoneNumber.label],
+                               label: [phoneNumber.label],
                             })
                         );
                     });
@@ -240,7 +242,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
                 this._changeDetectorRef.markForCheck();
             });
 
-        // Get the tags
+       // Get the tags
         this._contactsService.tags$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((tags: Tag[]) => {

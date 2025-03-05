@@ -2,7 +2,9 @@ export interface Contact {
     id: string;
     avatar?: string | null;
     background?: string | null;
-    name: string;
+    /*name: string;*/
+    firstname:string;
+    lastname:string;
     emails?: {
         email: string;
         label: string;
@@ -25,7 +27,9 @@ export interface Contact {
 export interface Country {
     id: string;
     iso: string;
-    name: string;
+   /* name: string;*/
+   firstname:string;
+   lastname:string;
     code: string;
     flagImagePos: string;
 }

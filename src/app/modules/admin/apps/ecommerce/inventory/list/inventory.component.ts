@@ -330,6 +330,7 @@ export class InventoryListComponent
             .subscribe((product) => {
                 // Set the selected product
                 this.selectedProduct = product;
+                
 
                 // Fill the form
                 this.selectedProductForm.patchValue(product);

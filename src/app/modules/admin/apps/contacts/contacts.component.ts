@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    OnInit,
     ViewEncapsulation,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -13,7 +14,7 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     imports: [RouterOutlet],
 })
-export class ContactsComponent {
+export class ContactsComponent /*implements OnInit*/ {
     /**
      * Constructor
      */
