@@ -286,7 +286,7 @@
             </div>
         </div>
 
-        <!-- Contact form -->
+        <!--  form -->
         <div
             class="relative flex flex-auto flex-col items-center px-6 sm:px-12"
         >
@@ -384,49 +384,13 @@
                     <!-- Tags -->
                     <div class="-m-1.5 mt-6 flex flex-wrap items-center">
                         <!-- Tags -->
-                        @if (contact.tags.length) {
-                            @for (
-                                tag of contact.tags
-                                    | fuseFindByKey: 'id' : tags;
-                                track trackByFn($index, tag)
-                            ) {
-                                <div
-                                    class="m-1.5 flex items-center justify-center rounded-full bg-gray-100 px-4 leading-9 text-gray-500 dark:bg-gray-700 dark:text-gray-300"
-                                >
-                                    <span
-                                        class="whitespace-nowrap text-md font-medium"
-                                        >{{ tag.title }}</span
-                                    >
-                                </div>
-                            }
-                        }
+
                         <!-- Tags panel and its button -->
                         <div
                             class="m-1.5 flex cursor-pointer items-center justify-center rounded-full bg-gray-100 px-4 leading-9 text-gray-500 dark:bg-gray-700 dark:text-gray-300"
-                            (click)="openTagsPanel()"
-                            #tagsPanelOrigin
                         >
-                            @if (contact.tags.length) {
-                                <mat-icon
-                                    class="icon-size-5"
-                                    [svgIcon]="'heroicons_solid:pencil-square'"
-                                ></mat-icon>
-                                <span
-                                    class="ml-1.5 whitespace-nowrap text-md font-medium"
-                                    >Edit</span
-                                >
-                            }
 
-                            @if (!contact.tags.length) {
-                                <mat-icon
-                                    class="icon-size-5"
-                                    [svgIcon]="'heroicons_solid:plus-circle'"
-                                ></mat-icon>
-                                <span
-                                    class="ml-1.5 whitespace-nowrap text-md font-medium"
-                                    >Add</span
-                                >
-                            }
+
 
                             <!-- Tags panel -->
                             <ng-template #tagsPanel>
@@ -508,7 +472,7 @@
                                                         [disableRipple]="true"
                                                     >
                                                     </mat-checkbox>
-                                                    <div>{{ tag.title }}</div>
+
                                                 </div>
                                             }
                                         }
@@ -562,35 +526,7 @@
                                             </div>
                                         }
                                         <!-- Create tag -->
-                                        @if (
-                                            shouldShowCreateTagButton(
-                                                newTagInput.value
-                                            )
-                                        ) {
-                                            <div
-                                                class="-ml-0.5 flex h-10 min-h-10 cursor-pointer items-center pl-4 pr-3 leading-none hover:bg-hover"
-                                                (click)="
-                                                    createTag(
-                                                        newTagInput.value
-                                                    );
-                                                    newTagInput.value = ''
-                                                "
-                                                matRipple
-                                            >
-                                                <mat-icon
-                                                    class="mr-2 icon-size-5"
-                                                    [svgIcon]="
-                                                        'heroicons_solid:plus-circle'
-                                                    "
-                                                ></mat-icon>
-                                                <div class="break-all">
-                                                    Create "<b>{{
-                                                        newTagInput.value
-                                                    }}</b
-                                                    >"
-                                                </div>
-                                            </div>
-                                        }
+
                                     </div>
                                 </div>
                             </ng-template>
@@ -603,11 +539,10 @@
                             class="w-full"
                             [subscriptSizing]="'dynamic'"
                         >
-                            <mat-label>Title</mat-label>
+                            <mat-label>Last Name </mat-label>
                             <mat-icon
                                 matPrefix
                                 class="hidden icon-size-5 sm:flex"
-                                [svgIcon]="'heroicons_solid:briefcase'"
                             ></mat-icon>
                             <input
                                 matInput
@@ -623,11 +558,10 @@
                             class="w-full"
                             [subscriptSizing]="'dynamic'"
                         >
-                            <mat-label>Company</mat-label>
+                            <mat-label>First Name</mat-label>
                             <mat-icon
                                 matPrefix
                                 class="hidden icon-size-5 sm:flex"
-                                [svgIcon]="'heroicons_solid:building-office-2'"
                             ></mat-icon>
                             <input
                                 matInput
@@ -669,24 +603,7 @@
                                             [spellcheck]="false"
                                         />
                                     </mat-form-field>
-                                    <mat-form-field
-                                        class="ml-2 w-full max-w-24 flex-auto sm:ml-4 sm:max-w-40"
-                                        [subscriptSizing]="'dynamic'"
-                                    >
-                                        @if (first) {
-                                            <mat-label>Label</mat-label>
-                                        }
-                                        <mat-icon
-                                            matPrefix
-                                            class="hidden icon-size-5 sm:flex"
-                                            [svgIcon]="'heroicons_solid:tag'"
-                                        ></mat-icon>
-                                        <input
-                                            matInput
-                                            [formControl]="email.get('label')"
-                                            [placeholder]="'Label'"
-                                        />
-                                    </mat-form-field>
+
                                     <!-- Remove email -->
                                     @if (!(first && last)) {
                                         <div
@@ -726,238 +643,8 @@
                         </div>
                     </div>
 
-                    <!-- Phone numbers -->
-                    <div class="mt-8">
-                        <div class="space-y-4">
-                            @for (
-                                phoneNumber of contactForm.get('phoneNumbers')[
-                                    'controls'
-                                ];
-                                track trackByFn(i, phoneNumber);
-                                let i = $index;
-                                let first = $first;
-                                let last = $last
-                            ) {
-                                <div class="relative flex">
-                                    <mat-form-field
-                                        class="flex-auto"
-                                        [subscriptSizing]="'dynamic'"
-                                    >
-                                        @if (first) {
-                                            <mat-label>Phone</mat-label>
-                                        }
-                                        <input
-                                            matInput
-                                            [formControl]="
-                                                phoneNumber.get('phoneNumber')
-                                            "
-                                            [placeholder]="'Phone'"
-                                        />
-                                        <mat-select
-                                            class="mr-1.5"
-                                            [formControl]="
-                                                phoneNumber.get('country')
-                                            "
-                                            matPrefix
-                                        >
-                                            <mat-select-trigger>
-                                                <span class="flex items-center">
-                                                    <span
-                                                        class="mr-1 hidden h-4 w-6 overflow-hidden sm:flex"
-                                                        [style.background]="
-                                                            'url(\'/images/apps/contacts/flags.png\') no-repeat 0 0'
-                                                        "
-                                                        [style.backgroundSize]="
-                                                            '24px 3876px'
-                                                        "
-                                                        [style.backgroundPosition]="
-                                                            getCountryByIso(
-                                                                phoneNumber.get(
-                                                                    'country'
-                                                                ).value
-                                                            ).flagImagePos
-                                                        "
-                                                    ></span>
-                                                    <span
-                                                        class="text-default font-medium sm:mx-0.5"
-                                                        >{{
-                                                            getCountryByIso(
-                                                                phoneNumber.get(
-                                                                    'country'
-                                                                ).value
-                                                            ).code
-                                                        }}</span
-                                                    >
-                                                </span>
-                                            </mat-select-trigger>
-                                            @for (
-                                                country of countries;
-                                                track trackByFn($index, country)
-                                            ) {
-                                                <mat-option
-                                                    [value]="country.iso"
-                                                >
-                                                    <span
-                                                        class="flex items-center"
-                                                    >
-                                                        <span
-                                                            class="h-4 w-6 overflow-hidden"
-                                                            [style.background]="
-                                                                'url(\'/images/apps/contacts/flags.png\') no-repeat 0 0'
-                                                            "
-                                                            [style.backgroundSize]="
-                                                                '24px 3876px'
-                                                            "
-                                                            [style.backgroundPosition]="
-                                                                country.flagImagePos
-                                                            "
-                                                        ></span>
-                                                        <span class="ml-2">{{
-                                                            country.name
-                                                        }}</span>
-                                                        <span
-                                                            class="ml-2 font-medium"
-                                                            >{{
-                                                                country.code
-                                                            }}</span
-                                                        >
-                                                    </span>
-                                                </mat-option>
-                                            }
-                                        </mat-select>
-                                    </mat-form-field>
-                                    <mat-form-field
-                                        class="ml-2 w-full max-w-24 flex-auto sm:ml-4 sm:max-w-40"
-                                        [subscriptSizing]="'dynamic'"
-                                    >
-                                        @if (first) {
-                                            <mat-label>Label</mat-label>
-                                        }
-                                        <mat-icon
-                                            matPrefix
-                                            class="hidden icon-size-5 sm:flex"
-                                            [svgIcon]="'heroicons_solid:tag'"
-                                        ></mat-icon>
-                                        <input
-                                            matInput
-                                            [formControl]="
-                                                phoneNumber.get('label')
-                                            "
-                                            [placeholder]="'Label'"
-                                        />
-                                    </mat-form-field>
-                                    <!-- Remove phone number -->
-                                    @if (!(first && last)) {
-                                        <div
-                                            class="flex w-10 items-center pl-2"
-                                            [ngClass]="{ 'mt-6': first }"
-                                        >
-                                            <button
-                                                class="h-8 min-h-8 w-8"
-                                                mat-icon-button
-                                                (click)="
-                                                    removePhoneNumberField(i)
-                                                "
-                                                matTooltip="Remove"
-                                            >
-                                                <mat-icon
-                                                    class="icon-size-5"
-                                                    [svgIcon]="
-                                                        'heroicons_solid:trash'
-                                                    "
-                                                ></mat-icon>
-                                            </button>
-                                        </div>
-                                    }
-                                </div>
-                            }
-                        </div>
-                        <div
-                            class="group -ml-4 mt-2 inline-flex cursor-pointer items-center rounded px-4 py-2"
-                            (click)="addPhoneNumberField()"
-                        >
-                            <mat-icon
-                                class="icon-size-5"
-                                [svgIcon]="'heroicons_solid:plus-circle'"
-                            ></mat-icon>
-                            <span
-                                class="text-secondary ml-2 font-medium group-hover:underline"
-                                >Add a phone number</span
-                            >
-                        </div>
-                    </div>
 
-                    <!-- Address -->
-                    <div class="mt-8">
-                        <mat-form-field
-                            class="w-full"
-                            [subscriptSizing]="'dynamic'"
-                        >
-                            <mat-label>Address</mat-label>
-                            <mat-icon
-                                matPrefix
-                                class="hidden icon-size-5 sm:flex"
-                                [svgIcon]="'heroicons_solid:map-pin'"
-                            ></mat-icon>
-                            <input
-                                matInput
-                                [formControlName]="'address'"
-                                [placeholder]="'Address'"
-                            />
-                        </mat-form-field>
-                    </div>
 
-                    <!-- Birthday -->
-                    <div class="mt-8">
-                        <mat-form-field
-                            class="w-full"
-                            [subscriptSizing]="'dynamic'"
-                        >
-                            <mat-label>Birthday</mat-label>
-                            <mat-icon
-                                matPrefix
-                                class="hidden icon-size-5 sm:flex"
-                                [svgIcon]="'heroicons_solid:cake'"
-                            ></mat-icon>
-                            <input
-                                matInput
-                                [matDatepicker]="birthdayDatepicker"
-                                [formControlName]="'birthday'"
-                                [placeholder]="'Birthday'"
-                            />
-                            <mat-datepicker-toggle
-                                matSuffix
-                                [for]="birthdayDatepicker"
-                            >
-                            </mat-datepicker-toggle>
-                            <mat-datepicker
-                                #birthdayDatepicker
-                            ></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Notes -->
-                    <div class="mt-8">
-                        <mat-form-field
-                            class="w-full"
-                            [subscriptSizing]="'dynamic'"
-                        >
-                            <mat-label>Notes</mat-label>
-                            <mat-icon
-                                matPrefix
-                                class="hidden icon-size-5 sm:flex"
-                                [svgIcon]="'heroicons_solid:bars-3-bottom-left'"
-                            ></mat-icon>
-                            <textarea
-                                matInput
-                                [formControlName]="'notes'"
-                                [placeholder]="'Notes'"
-                                [rows]="5"
-                                [spellcheck]="false"
-                                cdkTextareaAutosize
-                            ></textarea>
-                        </mat-form-field>
-                    </div>
 
                     <!-- Actions -->
                     <div

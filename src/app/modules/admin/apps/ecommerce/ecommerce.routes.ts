@@ -11,7 +11,7 @@ export default [
         redirectTo: 'inventory',
     },
     {
-        path: 'inventory',
+        path: '',
         component: InventoryComponent,
         children: [
             {

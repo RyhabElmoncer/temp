@@ -76,8 +76,8 @@ export const appRoutes: Route[] = [
 
             // Apps
             {path: 'apps', children: [
-                {path: 'contacts', loadChildren: () => import('app/modules/admin/apps/contacts/contacts.routes')},
-                {path: 'ecommerce', loadChildren: () => import('app/modules/admin/apps/ecommerce/ecommerce.routes')},
+                {path: 'user', loadChildren: () => import('app/modules/admin/apps/contacts/contacts.routes')},
+                {path: 'project', loadChildren: () => import('app/modules/admin/apps/ecommerce/ecommerce.routes')},
                 {path: 'mailbox', loadChildren: () => import('app/modules/admin/apps/mailbox/mailbox.routes')},
                 {path: 'scrumboard', loadChildren: () => import('app/modules/admin/apps/scrumboard/scrumboard.routes')},
                 {path: 'tasks', loadChildren: () => import('app/modules/admin/apps/tasks/tasks.routes')},

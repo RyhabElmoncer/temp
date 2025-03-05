@@ -12,6 +12,8 @@ export interface Contact {
         phoneNumber: string;
         label: string;
     }[];
+lastname?: string;
+    firstname?: string;
     title?: string;
     company?: string;
     birthday?: string | null;

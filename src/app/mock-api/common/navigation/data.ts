@@ -15,7 +15,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'User Managment',
                 type: 'basic',
                 icon: 'heroicons_outline:user-group',
-                link: '/apps/contacts',
+                link: '/apps/user',
             },
             {
                         id: 'apps.ecommerce.inventory',
@@ -23,7 +23,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         type: 'basic',
                          icon: 'heroicons_outline:shopping-cart',
 
-                        link: '/apps/ecommerce/inventory',
+                        link: '/apps/project',
             },
 
            {
