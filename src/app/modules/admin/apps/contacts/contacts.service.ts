@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
     Contact,
@@ -16,6 +16,7 @@ import {
     tap,
     throwError,
 } from 'rxjs';
+
 
 @Injectable({ providedIn: 'root' })
 export class ContactsService {
@@ -132,11 +133,12 @@ export class ContactsService {
      * Create contact
      */
     createContact(): Observable<Contact> {
+        alert("creation")
         return this.contacts$.pipe(
             take(1),
             switchMap((contacts) =>
                 this._httpClient
-                    .post<Contact>('api/apps/contacts/contact', {})
+                    .post<Contact>('api/apps/contacts/contact',{})
                     .pipe(
                         map((newContact) => {
                             // Update the contacts with the new contact
@@ -149,6 +151,57 @@ export class ContactsService {
             )
         );
     }
+
+
+   
+    /*createContacts(data:any): Observable<Contact> {
+        alert("creation")
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc0MTM2MzE4OSwiZXhwIjoxNzQxMzY0NjI5fQ.qhShT4cskYu4aMrKUxFlP_97SdW_V1ZooqJ6V0YPgiQ',
+          });
+        
+          return this._httpClient.post("http://localhost:8082/api/v1/admin/addUser", data, { headers });
+        return this.contacts$.pipe(
+            take(1),
+            switchMap((contacts) =>
+                this._httpClient
+                    .post<Contact>('http://localhost:8082/api/v1/admin/addUser', data)
+                    .pipe(
+                        map((newContact) => {
+                            // Update the contacts with the new contact
+                            this._contacts.next([newContact, ...contacts]);
+
+                            // Return the new contact
+                            return newContact;
+                        })
+                    )
+            )
+        );
+    }*/
+        createContacts(data: any): Observable<Contact> {
+            alert("creation");
+        
+            // Define headers
+            const headers = new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc0MTM4NzI0MCwiZXhwIjoxNzQxMzg4NjgwfQ.Gd8t9Anc8oxE2teF0u-gydjeLzHsvF21LUbdOScswS8',
+            });
+        
+            // Make the HTTP POST request with headers
+            return this._httpClient.post<Contact>("http://localhost:8082/api/v1/admin/addUser", data, { headers }).pipe(
+                switchMap((newContact) => {
+                    // Update the contacts list with the new contact
+                    return this.contacts$.pipe(
+                        take(1),
+                        map((contacts) => {
+                            this._contacts.next([newContact, ...contacts]);
+                            return newContact;
+                        })
+                    );
+                })
+            );
+        }
 
     /**
      * Update contact
@@ -205,6 +258,7 @@ export class ContactsService {
      * @param id
      */
     deleteContact(id: string): Observable<boolean> {
+        alert("delete")
         return this.contacts$.pipe(
             take(1),
             switchMap((contacts) =>

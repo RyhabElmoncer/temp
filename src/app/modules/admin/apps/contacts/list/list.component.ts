@@ -208,6 +208,7 @@ export class ContactsListComponent implements OnInit, OnDestroy {
      * Create contact
      */
     createContact(): void {
+        
         // Create the contact
         this._contactsService.createContact().subscribe((newContact) => {
             // Go to the new contact

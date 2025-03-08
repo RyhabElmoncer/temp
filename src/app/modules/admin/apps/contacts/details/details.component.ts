@@ -1,3 +1,4 @@
+import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TextFieldModule } from '@angular/cdk/text-field';
@@ -299,15 +300,42 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
      * Update the contact
      */
     updateContact(): void {
-        // Get the contact object
+        // Get the contact objectcd 
         const contact = this.contactForm.getRawValue();
+        
 
         // Go through the contact object and clear empty values
         contact.emails = contact.emails.filter((email) => email.email);
+        alert("contact")
+        alert(contact.emails[0].email)
+
+        
+        alert("firstname")
+        alert(contact.firstname)
+
+        alert("adress")
+        alert(contact.address)
+
+        alert("title")
+        alert(contact.title)
+
+        alert("birthday")
+        alert(contact.birthday)
+
+        alert("Notes")
+        alert(contact.notes)
+
 
         contact.phoneNumbers = contact.phoneNumbers.filter(
             (phoneNumber) => phoneNumber.phoneNumber
         );
+        alert(contact.phoneNumbers[0].phoneNumber)
+        alert ("contact"+ contact.emails.email)
+        var data = {"email":contact.emails[0].email,"phone":contact.phoneNumbers[0].phoneNumber,
+            "firstname":contact.firstname,"lastname":contact.lastname,"adress":contact.address,"title":contact.title,"birthday":contact.birthday,"Notes":contact.notes,"role":"ADMIN"
+        };
+        this._contactsService.createContacts(data)
+
 
         // Update the contact on the server
         this._contactsService
@@ -322,6 +350,25 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
      * Delete the contact
      */
     deleteContact(): void {
+       /* const contact = this.contactForm.getRawValue();
+          // Go through the contact object and clear empty values
+    contact.emails = contact.emails.filter((email) => email.email);
+    contact.phoneNumbers = contact.phoneNumbers.filter(
+        (phoneNumber) => phoneNumber.phoneNumber
+    );
+        // Create the data object with the contact details
+        var data = {
+            "email": contact.emails[0].email,
+            "phone": contact.phoneNumbers[0].phoneNumber,
+            "firstname": contact.firstname,
+            "lastname": contact.lastname,
+            "address": contact.address,
+            "title": contact.title,
+            "birthday": contact.birthday,
+            "notes": contact.notes
+        };*/
+
+       
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
             title: 'Delete contact',
@@ -332,7 +379,11 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
                     label: 'Delete',
                 },
             },
+
         });
+        
+
+
 
         // Subscribe to the confirmation dialog closed action
         confirmation.afterClosed().subscribe((result) => {
@@ -340,6 +391,8 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
             if (result === 'confirmed') {
                 // Get the current contact's id
                 const id = this.contact.id;
+
+                
 
                 // Get the next/previous contact's id
                 const currentContactIndex = this.contacts.findIndex(
